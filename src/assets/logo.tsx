@@ -1,7 +1,7 @@
-import * as React from "react";
-import Svg, { ClipPath, Defs, G, Path, SvgProps } from "react-native-svg";
+import type { SvgProps } from 'react-native-svg';
+import Svg, { ClipPath, Defs, G, Path } from 'react-native-svg';
 
-const LogoSVG = (props: SvgProps) => (
+export const LogoSVG = (props: SvgProps) => (
   <Svg width={111} height={32} fill="none" {...props}>
     <G clipPath="url(#a)">
       <Path
@@ -32,14 +32,8 @@ const LogoSVG = (props: SvgProps) => (
         <Path fill="#fff" d="M0 0h110.345v32H0z" />
       </ClipPath>
       <ClipPath id="b">
-        <Path
-          fill="#fff"
-          transform="translate(0 .08)"
-          d="M0 0h19.485v31.919H0z"
-        />
+        <Path fill="#fff" transform="translate(0 .08)" d="M0 0h19.485v31.919H0z" />
       </ClipPath>
     </Defs>
   </Svg>
 );
-
-export default LogoSVG;
