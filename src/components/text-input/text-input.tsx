@@ -1,9 +1,10 @@
 import { useReducer } from 'react';
+import type { TextInputProps } from 'react-native';
 import { StyleSheet, TextInput as RNTextInput } from 'react-native';
 
 import { colors } from '~/theme/colors';
 
-export const TextInput = () => {
+export const TextInput: React.FC<TextInputProps> = (props) => {
   const [hasFocus, toggleFocus] = useReducer((isFocused) => !isFocused, false);
 
   return (
@@ -15,6 +16,7 @@ export const TextInput = () => {
       allowFontScaling
       onFocus={toggleFocus}
       onBlur={toggleFocus}
+      {...props}
     />
   );
 };
