@@ -6,9 +6,9 @@ import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
-import { LogoSVG } from './src/assets/logo';
+import { HomeScreen } from '~/screens/home/home';
 
 export const App = () => {
   const [fontsLoaded] = useFonts({
@@ -36,8 +36,7 @@ export const App = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text>Open up App.tsx to start working on your app!!!</Text>
-      <LogoSVG />
+      <HomeScreen />
       <StatusBar style="auto" />
     </View>
   );
@@ -45,9 +44,6 @@ export const App = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center'
+    flex: 1
   }
 });
