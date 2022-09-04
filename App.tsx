@@ -8,7 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
-import { HomeScreen } from '~/screens/home/home';
+import { HomeScreen } from '~/screens';
 
 export const App = () => {
   const [fontsLoaded] = useFonts({
@@ -37,7 +37,7 @@ export const App = () => {
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
       <HomeScreen />
-      <StatusBar style="auto" />
+      <StatusBar style="light" />
     </View>
   );
 };
