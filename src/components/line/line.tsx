@@ -6,7 +6,7 @@ export const Line = () => <View style={styles.line} />;
 
 const styles = StyleSheet.create({
   line: {
-    borderBottomColor: colors.gray[400],
-    borderWidth: 1
+    backgroundColor: colors.gray[400],
+    height: 1
   }
 });
