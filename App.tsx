@@ -8,6 +8,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useCallback, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 
+import { TaskProvider } from '~/contexts/task-context';
 import { HomeScreen } from '~/screens';
 
 export const App = () => {
@@ -36,7 +37,9 @@ export const App = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <HomeScreen />
+      <TaskProvider>
+        <HomeScreen />
+      </TaskProvider>
       <StatusBar style="light" />
     </View>
   );

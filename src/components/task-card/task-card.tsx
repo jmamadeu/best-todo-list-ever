@@ -1,23 +1,32 @@
-import { Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign, Entypo, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
+import type { TaskContextProps } from '~/contexts/task-context';
 import { colors } from '~/theme/colors';
 
 type TaskCardProps = {
   task: Module.Task.Type;
+  handlePressDeleteButton: TaskContextProps['deleteTask'];
+  handlePressDoneButton: TaskContextProps['toggleIsDone'];
 };
 
-export const TaskCard: React.FC<TaskCardProps> = () => (
+export const TaskCard: React.FC<TaskCardProps> = ({
+  task,
+  handlePressDeleteButton,
+  handlePressDoneButton
+}) => (
   <View style={styles.taskContainer}>
     <View style={styles.task}>
-      <Pressable>
-        <Entypo name="circle" size={20} color={colors.blue} />
+      <Pressable onPress={() => handlePressDoneButton(task.id)}>
+        {task.isDone ? (
+          <AntDesign name="checkcircle" size={20} color={colors.purpleDark} />
+        ) : (
+          <Entypo name="circle" size={20} color={colors.blue} />
+        )}
       </Pressable>
-      <Text style={styles.taskName}>
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi tenetur,
-      </Text>
+      <Text style={[styles.taskName, task.isDone && styles.isDone]}>{task.name}</Text>
     </View>
-    <Pressable>
+    <Pressable onPress={() => handlePressDeleteButton(task.id)}>
       <MaterialCommunityIcons name="trash-can-outline" size={20} color={colors.gray[300]} />
     </Pressable>
   </View>
@@ -42,5 +51,12 @@ const styles = StyleSheet.create({
     fontFamily: 'Inter-Regular',
     fontSize: 14,
     marginLeft: 8
+  },
+  isDone: {
+    textDecorationColor: colors.gray[300],
+    textDecorationStyle: 'solid',
+    textDecorationLine: 'line-through',
+
+    color: colors.gray[300]
   }
 });

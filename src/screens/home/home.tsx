@@ -1,14 +1,31 @@
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
-import { colors } from '../../theme/colors';
 
 import { AddButton } from '~/components/add-button/add-button';
 import { Header } from '~/components/header/header';
 import { Line } from '~/components/line/line';
+import { TaskCardList } from '~/components/task-card-list/task-card-list';
 import { TextInput } from '~/components/text-input/text-input';
 import { WithoutTasksCard } from '~/components/without-tasks-card/without-tasks-card';
+import { useTasks } from '~/contexts/task-context';
+import { colors } from '~/theme/colors';
 
 export const HomeScreen = () => {
+  const [taskTitle, setTaskTitle] = useState('');
+  const { tasks, addNewTask } = useTasks();
+
+  const handleAddNewTaskButtonClick = (taskName: Module.Task.Type['name']) => {
+    if (!taskName) {
+      return;
+    }
+
+    addNewTask(taskTitle);
+
+    setTaskTitle('');
+  };
+
+  const hasNoTasks = !tasks.length ?? [];
+
   return (
     <View style={styles.container}>
       <Header />
@@ -16,9 +33,9 @@ export const HomeScreen = () => {
       <View style={styles.content}>
         <View style={styles.searchForm}>
           <View style={styles.inputContainer}>
-            <TextInput />
+            <TextInput value={taskTitle} onChangeText={(value) => setTaskTitle(value)} />
           </View>
-          <AddButton />
+          <AddButton onPress={() => handleAddNewTaskButtonClick(taskTitle)} />
         </View>
 
         <View>
@@ -42,9 +59,15 @@ export const HomeScreen = () => {
             <Line />
           </View>
 
-          <View style={styles.clipBoard}>
-            <WithoutTasksCard />
-          </View>
+          {hasNoTasks ? (
+            <View style={styles.clipBoard}>
+              <WithoutTasksCard />
+            </View>
+          ) : (
+            <View style={styles.taskList}>
+              <TaskCardList />
+            </View>
+          )}
         </View>
       </View>
     </View>
@@ -104,5 +127,8 @@ const styles = StyleSheet.create({
   },
   clipBoard: {
     marginTop: 48
+  },
+  taskList: {
+    marginTop: 20
   }
 });
