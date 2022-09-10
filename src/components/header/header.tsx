@@ -12,7 +12,7 @@ export const Header = () => (
 const styles = StyleSheet.create({
   container: {
     backgroundColor: colors.gray[700],
-    height: 150,
+    height: 180,
     justifyContent: 'center',
     alignItems: 'center'
   }
