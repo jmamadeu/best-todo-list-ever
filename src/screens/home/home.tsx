@@ -29,65 +29,69 @@ export const HomeScreen = () => {
   const tasksDoneTotal = tasks.filter((task) => task.isDone).length;
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <Header />
-
-      <View style={styles.content}>
-        <View style={styles.searchForm}>
-          <View style={styles.inputContainer}>
-            <TextInput
-              value={taskTitle}
-              returnKeyLabel="Save"
-              returnKeyType="done"
-              onSubmitEditing={() => {
-                handleAddNewTaskButtonClick();
-              }}
-              onChangeText={(value) => setTaskTitle(value)}
-            />
+      <SafeAreaView style={styles.safeView}>
+        <View style={styles.content}>
+          <View style={styles.searchForm}>
+            <View style={styles.inputContainer}>
+              <TextInput
+                value={taskTitle}
+                returnKeyLabel="Save"
+                returnKeyType="done"
+                onSubmitEditing={() => {
+                  handleAddNewTaskButtonClick();
+                }}
+                onChangeText={(value) => setTaskTitle(value)}
+              />
+            </View>
+            <AddButton onPress={handleAddNewTaskButtonClick} />
           </View>
-          <AddButton onPress={handleAddNewTaskButtonClick} />
-        </View>
 
-        <View>
-          <View style={styles.taskListContainer}>
-            <View style={styles.typeContainer}>
-              <Text style={[styles.text, styles.addedText]}>To do</Text>
-              <View style={styles.number}>
-                <Text style={styles.numberText}>{tasksTodoTotal}</Text>
+          <View>
+            <View style={styles.taskListContainer}>
+              <View style={styles.typeContainer}>
+                <Text style={[styles.text, styles.addedText]}>To do</Text>
+                <View style={styles.number}>
+                  <Text style={styles.numberText}>{tasksTodoTotal}</Text>
+                </View>
+              </View>
+
+              <View style={styles.typeContainer}>
+                <Text style={[styles.text, styles.doneText]}>Done</Text>
+                <View style={styles.number}>
+                  <Text style={styles.numberText}>{tasksDoneTotal}</Text>
+                </View>
               </View>
             </View>
 
-            <View style={styles.typeContainer}>
-              <Text style={[styles.text, styles.doneText]}>Done</Text>
-              <View style={styles.number}>
-                <Text style={styles.numberText}>{tasksDoneTotal}</Text>
-              </View>
+            <View style={styles.line}>
+              <Line />
             </View>
           </View>
 
-          <View style={styles.line}>
-            <Line />
-          </View>
+          {hasNoTasks ? (
+            <View style={styles.clipBoard}>
+              <WithoutTasksCard />
+            </View>
+          ) : (
+            <View style={styles.taskList}>
+              <TaskCardList />
+            </View>
+          )}
         </View>
-
-        {hasNoTasks ? (
-          <View style={styles.clipBoard}>
-            <WithoutTasksCard />
-          </View>
-        ) : (
-          <View style={styles.taskList}>
-            <TaskCardList />
-          </View>
-        )}
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1
+  },
+  safeView: {
     flex: 1,
-    backgroundColor: colors.gray[700]
+    backgroundColor: colors.gray[600]
   },
   content: {
     paddingHorizontal: 24,
