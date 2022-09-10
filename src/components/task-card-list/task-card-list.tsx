@@ -26,7 +26,8 @@ export const TaskCardList = () => {
       /> */}
 
       <FlatList
-        contentContainerStyle={{ flex: 1 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
+        showsVerticalScrollIndicator={false}
         renderItem={(task) => (
           <View style={styles.task}>
             <TaskCard
