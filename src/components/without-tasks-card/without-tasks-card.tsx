@@ -8,7 +8,7 @@ export const WithoutTasksCard = () => (
     <ClipBoardSVG />
 
     <Text style={[styles.firstText, styles.text]}>You don't have any tasks</Text>
-    <Text style={[styles.secondText, styles.text]}>Add new tasks and organize your to-do</Text>
+    <Text style={[styles.secondText, styles.text]}>Add new tasks and get the work done</Text>
   </View>
 );
 

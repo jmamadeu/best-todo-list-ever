@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 import { TaskCard } from '../task-card/task-card';
 
@@ -10,7 +10,38 @@ export const TaskCardList = () => {
 
   return (
     <>
-      {tasks.map((task) => (
+      {/* <FlatList
+        showsVerticalScrollIndicator={false}
+        renderItem={(task) => (
+          <View style={styles.task}>
+            <TaskCard
+              task={task.item}
+              handlePressDeleteButton={deleteTask}
+              handlePressDoneButton={toggleIsDone}
+            />
+          </View>
+        )}
+        // estimatedItemSize={200}
+        data={tasks}
+      /> */}
+
+      <FlatList
+        contentContainerStyle={{ flex: 1 }}
+        renderItem={(task) => (
+          <View style={styles.task}>
+            <TaskCard
+              task={task.item}
+              handlePressDeleteButton={deleteTask}
+              handlePressDoneButton={toggleIsDone}
+            />
+          </View>
+        )}
+        keyExtractor={(item) => item.id}
+        // estimatedItemSize={200}
+        data={tasks}
+      />
+
+      {/* {tasks.map((task) => (
         <View key={task.id} style={styles.task}>
           <TaskCard
             task={task}
@@ -18,7 +49,7 @@ export const TaskCardList = () => {
             handlePressDoneButton={toggleIsDone}
           />
         </View>
-      ))}
+      ))} */}
     </>
   );
 };

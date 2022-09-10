@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 
 import { AddButton } from '~/components/add-button/add-button';
 import { Header } from '~/components/header/header';
@@ -14,8 +14,8 @@ export const HomeScreen = () => {
   const [taskTitle, setTaskTitle] = useState('');
   const { tasks, addNewTask } = useTasks();
 
-  const handleAddNewTaskButtonClick = (taskName: Module.Task.Type['name']) => {
-    if (!taskName) {
+  const handleAddNewTaskButtonClick = () => {
+    if (!taskTitle) {
       return;
     }
 
@@ -25,17 +25,27 @@ export const HomeScreen = () => {
   };
 
   const hasNoTasks = !tasks.length ?? [];
+  const tasksTodoTotal = tasks.filter((task) => !task.isDone).length;
+  const tasksDoneTotal = tasks.filter((task) => task.isDone).length;
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
 
       <View style={styles.content}>
         <View style={styles.searchForm}>
           <View style={styles.inputContainer}>
-            <TextInput value={taskTitle} onChangeText={(value) => setTaskTitle(value)} />
+            <TextInput
+              value={taskTitle}
+              returnKeyLabel="Save"
+              returnKeyType="done"
+              onSubmitEditing={() => {
+                handleAddNewTaskButtonClick();
+              }}
+              onChangeText={(value) => setTaskTitle(value)}
+            />
           </View>
-          <AddButton onPress={() => handleAddNewTaskButtonClick(taskTitle)} />
+          <AddButton onPress={handleAddNewTaskButtonClick} />
         </View>
 
         <View>
@@ -43,14 +53,14 @@ export const HomeScreen = () => {
             <View style={styles.typeContainer}>
               <Text style={[styles.text, styles.addedText]}>To do</Text>
               <View style={styles.number}>
-                <Text style={styles.numberText}>0</Text>
+                <Text style={styles.numberText}>{tasksTodoTotal}</Text>
               </View>
             </View>
 
             <View style={styles.typeContainer}>
               <Text style={[styles.text, styles.doneText]}>Done</Text>
               <View style={styles.number}>
-                <Text style={styles.numberText}>0</Text>
+                <Text style={styles.numberText}>{tasksDoneTotal}</Text>
               </View>
             </View>
           </View>
@@ -58,37 +68,39 @@ export const HomeScreen = () => {
           <View style={styles.line}>
             <Line />
           </View>
-
-          {hasNoTasks ? (
-            <View style={styles.clipBoard}>
-              <WithoutTasksCard />
-            </View>
-          ) : (
-            <View style={styles.taskList}>
-              <TaskCardList />
-            </View>
-          )}
         </View>
+
+        {hasNoTasks ? (
+          <View style={styles.clipBoard}>
+            <WithoutTasksCard />
+          </View>
+        ) : (
+          <View style={styles.taskList}>
+            <TaskCardList />
+          </View>
+        )}
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.gray[600]
+    backgroundColor: colors.gray[700]
   },
   content: {
     paddingHorizontal: 24,
-    marginTop: -27
+    flex: 1,
+    backgroundColor: colors.gray[600]
   },
   inputContainer: {
     flex: 1,
     marginRight: 4
   },
   searchForm: {
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: -27
   },
   taskListContainer: {
     flexDirection: 'row',
@@ -129,6 +141,7 @@ const styles = StyleSheet.create({
     marginTop: 48
   },
   taskList: {
-    marginTop: 20
+    marginTop: 20,
+    flex: 1
   }
 });

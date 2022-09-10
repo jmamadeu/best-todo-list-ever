@@ -40,7 +40,7 @@ export const App = () => {
       <TaskProvider>
         <HomeScreen />
       </TaskProvider>
-      <StatusBar style="light" />
+      <StatusBar style="light" backgroundColor="#fff" />
     </View>
   );
 };
