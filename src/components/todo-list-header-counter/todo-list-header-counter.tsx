@@ -21,7 +21,6 @@ export const TodoListHeaderCounter: React.FC<TodoListHeaderCounterProps> = ({
           <Text style={styles.numberText}>{totalTodo}</Text>
         </View>
       </View>
-
       <View style={styles.typeContainer}>
         <Text style={[styles.text, styles.doneText]}>Done</Text>
         <View style={styles.number}>
